@@ -1,0 +1,53 @@
+<!--  <table class="table">
+    <thead>
+        <tr>
+        <th >
+            image
+        </th>
+            <th>
+                name
+            </th>
+            <th>
+                price
+            </th>
+            <th>
+                untis in stock
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of products">
+            <th >
+                <img src="{{product.imageUrl}}" height="50"/>
+            </th>
+            <th>
+              {{product.name}}
+            </th>
+            <th>
+               {{product.unitPrice| currency:'USD'}}
+            </th>
+            <th>
+              {{product.unitsInStock}} 
+            </th>
+        </tr>
+    </tbody>
+
+    
+</table>--> 
+
+<div class="main-content">
+    <div class="section-content section-content-p30" >
+        <div class="content-fluid">
+            <div class="row">
+                <div *ngFor="let product of products" class="col-md-3">
+                    <div class="product-box">
+                        <img src="{{product.imageUrl}}" class="image-responsive"/>
+                        <h1>{{product.name}}</h1>
+
+                    </div>
+
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
