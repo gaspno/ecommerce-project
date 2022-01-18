@@ -31,12 +31,12 @@ export class ProductListComponent implements OnInit {
       console.log(this.currentCategoryId)
       
     }else{
-      this.currentCategoryId=3;
+      this.currentCategoryId=1;
     
     }
     this.productService.getProductList(this.currentCategoryId).subscribe(
       data =>{
-        this.products=data;       
+        this.products=data;             
       }
     );
   }
