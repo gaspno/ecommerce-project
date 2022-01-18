@@ -45,10 +45,11 @@
                         <h1>{{product.name}}</h1>
                         <div>{{product.unitPrice|currency:'USD'}}</div>
                         <a href="#" class="primary-btn">Add to cart</a>
-
                     </div>
-
-                </div>                
+                </div> 
+                <div *ngIf="products?.length==0" class="alert alert-warning col-md-12" role="alert">
+                    No products found
+                </div>               
             </div>
         </div>
     </div>
