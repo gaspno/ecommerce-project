@@ -26,6 +26,12 @@ export class ProductsService {
        map(response=>response._embedded.products)
      );
    }
+   getProductListPaginate(thePage:number,thePageSize:number,categoryId:number):Observable<GetResponse>{
+
+    const searchUrl=this.baseUrl+'/search/findByCategoryId?id='+categoryId+"&page="+thePage+"&size="+thePageSize;
+  
+     return this.httpClient.get<GetResponse>(searchUrl);
+   }
    getProductsCategories():Observable<ProductCategory[]> {
     
     return this.httpClient.get<GetResponseCategory>(this.categoryUrl).pipe(
@@ -43,6 +49,13 @@ export class ProductsService {
        map(response=>response._embedded.products)
      );
   }
+
+  searchProductsPaginate(thePage:number,thePageSize:number,theKeyword: string):Observable<GetResponse>{
+
+    const searchUrl=this.baseUrl+'/search/findByNameContaining?name='+theKeyword+"&page="+thePage+"&size="+thePageSize;
+  
+     return this.httpClient.get<GetResponse>(searchUrl);
+   }
   getProduct(id:number):Observable<Product> {
 
     const searchUrl=this.baseUrl+'/'+id;  
@@ -54,6 +67,12 @@ export class ProductsService {
 interface GetResponse {
   _embedded:{
     products:Product[];
+  }
+  page : {
+    size: number,
+    totalElements:number,
+    totalPages:number,
+    number: number
   }
 }
 interface GetResponseCategory {
