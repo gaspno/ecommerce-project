@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CartItem } from 'src/app/common/cart-item';
 import { Product } from 'src/app/common/product';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductsService } from 'src/app/services/products.service';
 
 
@@ -23,6 +25,7 @@ export class ProductListComponent implements OnInit {
   
 
   constructor(private productService:ProductsService,
+    private cartService:CartService,
     private route:ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -52,7 +55,6 @@ export class ProductListComponent implements OnInit {
     const hasId:boolean =this.route.snapshot.paramMap.has('id');
     if(hasId){
       this.currentCategoryId =Number(this.route.snapshot.paramMap.get("id"));
-      console.log(this.currentCategoryId)
       
     }else{
       this.currentCategoryId=1;
@@ -65,7 +67,6 @@ export class ProductListComponent implements OnInit {
 
     this.previusCategoryId=this.currentCategoryId;
 
-    console.log(`current category id=${this.currentCategoryId}, current page = ${this.thePageNumber}`)
 
     this.productService.getProductListPaginate(this.thePageNumber-1,this.thePageSize,this.currentCategoryId)
     .subscribe(data=>{
@@ -83,7 +84,6 @@ export class ProductListComponent implements OnInit {
     if(this.previousKeyword=theKeyword){
       this.previousKeyword=theKeyword;
     }
-    console.log(`current keyword ${theKeyword}, previus keyword = ${this.previousKeyword}`)
 
 
     this.productService.searchProductsPaginate(this.thePageNumber-1,
@@ -96,6 +96,13 @@ export class ProductListComponent implements OnInit {
                                                 this.totalNumberElements=data.page.totalElements;
                                                })
 
+  }
+
+  addToCart(p:Product){
+    console.log(`adding to cart :${p.name} ,${p.unitPrice}`)
+
+    const theCartItem=new CartItem(p);
+    this.cartService.addToCart(theCartItem);
   }
 
 }
