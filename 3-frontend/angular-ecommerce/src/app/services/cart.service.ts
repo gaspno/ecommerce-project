@@ -9,6 +9,7 @@ import { CartItem } from '../common/cart-item';
   providedIn: 'root'
 })
 export class CartService {
+ 
 
   cartItems:CartItem[]=[];
 
@@ -45,6 +46,24 @@ export class CartService {
       //this.logCartData(priceTotalValue,quantityTotalValue);
 
     }
+    removeOneToCart(c: CartItem) {
+      c.quantity--;
+      if(c.quantity===0){
+
+        this.removeToCart(c);
+      }else{
+        this.computeCartTotal();
+      }
+      
+    }
+  removeToCart(c: CartItem) {
+    const itemIndex=this.cartItems.findIndex(cItem=>cItem.id===c.id);
+
+    if(itemIndex>-1){
+      this.cartItems.splice(itemIndex,1);
+      this.computeCartTotal();
+    }
+  }
   /*logCartData(priceTotalValue: number, quantityTotalValue: number) {
     for(let tempCartItem of this.cartItems){
       const subTotal=tempCartItem.unitPrice*tempCartItem.quantity;
